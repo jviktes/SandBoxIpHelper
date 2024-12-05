@@ -34,3 +34,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+           # Runs a set of commands using the runners shell
+      - name: Write variables
+        run: |
+            echo "VAR_1 from shell environment : ${{ vars.VAR_1 }}"
+            echo "VARIABLETEST from shell environment : ${{ vars.VARIABLETEST }}"
+            echo "SECRET from shell environment : ${{ secrets.SECRET }}"
+
+            
