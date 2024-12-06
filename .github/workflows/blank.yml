@@ -1,7 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
 name: CI
-
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: ${{ vars.VAR_1 }}
+  
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -40,6 +43,29 @@ jobs:
             echo "VAR_1 from shell environment : ${{env.vars.VAR_1 }}"
             echo "SEC_1 from shell environment : ${{env.secrets.SEC_1 }}"
             echo "ENV from shell environment : ${{env}}"
-            
-
-            
+            echo "variable from shell environment : $env_var"
+  powerShellIssues:
+      # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install prerequisites
+      shell: pwsh
+      run: |
+        Install-Module AadAuthenticationFactory -AllowPrerelease -Force -Scope CurrentUser
+    
+    - name: Write files names
+      shell: pwsh
+      run: |
+        $files = Get-ChildItem "$env:GITHUB_WORKSPACE\Module" -File -Recurse -Include *.ps1, *.ps1xml, *.psd1, *.psm1, *.pssc, *.psrc, *.cdxml
+        try {
+            foreach ($file in $files) {
+              $file
+            }
+        }
+        catch {
+            Write-Host "Error: $($_.Exception)"
+            throw
+        }
+        Write-Host "Signed files summary"
+        Write-Host "VAR_1:"
+        ${{ vars.VAR_1}}
