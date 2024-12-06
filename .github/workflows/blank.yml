@@ -67,14 +67,19 @@ jobs:
         Write-Host "VAR_1:"
         Write-Host ${{vars.VAR_1}}
       continue-on-error: true
-    
+      
+    - name: GetModules
+      shell: pwsh
+      run: |
+        Get-InstalledModule
+      continue-on-error: true    
+      
     - name: Write files names
       shell: pwsh
       run: |
-        $files = Get-ChildItem "$env:GITHUB_WORKSPACE" -File -Recurse -Include *.ps1, *.ps1xml, *.psd1, *.psm1, *.pssc, *.psrc, *.cdxml
+        $files = Get-ChildItem "$env.WORKING_DIRECTORY" -File -Recurse
         try {
             foreach ($file in $files) {
-              Write-Host $file
               Write-Host $file.name
             }
         }
@@ -107,7 +112,7 @@ jobs:
   
       - name: Publish with dotnet
         shell: bash
-        run: dotnet publish -c Release -r win-x64 -o ./output --self-contained '${{inputs.project-path}}'
+        run: dotnet publish ${{ env.WORKING_DIRECTORY }}/SandBoxIpHelper.sln -c Release -r win-x64 -o ./output
   
       - name: Upload artifact
         uses: actions/upload-artifact@v4
