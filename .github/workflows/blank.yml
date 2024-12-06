@@ -43,14 +43,19 @@ jobs:
             echo "SEC_1 from shell environment : ${{env.secrets.SEC_1 }}"
             echo "ENV from shell environment : ${{env}}"
             echo "variable from shell environment : $env_var"
-            echo '${{ toJSON(env) }}
+            echo '${{ toJSON(env) }}'
+        continue-on-error: true
+        
       - name: Write GITHUB_CONTEXT
         run: |
             echo "$GITHUB_CONTEXT"
+        continue-on-error: true
+        
       - name: Write GITHUB_CONTEXT_TEST
         run: |
             echo "$GITHUB_CONTEXT_TEST"
-
+        continue-on-error: true
+      
   powerShellIssues:
       # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -62,13 +67,15 @@ jobs:
         Write-Host "VAR_1:"
         Write-Host ${{vars.VAR_1}}
       continue-on-error: true
+    
     - name: Write files names
       shell: pwsh
       run: |
         $files = Get-ChildItem "$env:GITHUB_WORKSPACE" -File -Recurse -Include *.ps1, *.ps1xml, *.psd1, *.psm1, *.pssc, *.psrc, *.cdxml
         try {
             foreach ($file in $files) {
-              $file
+              Write-Host $file
+              Write-Host $file.name
             }
         }
         catch {
@@ -80,6 +87,32 @@ jobs:
         
     - name: Install NMP Dependencies
       run: npm install    
-
-
+      continue-on-error: true
+      
+  compilation: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up dotnet ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+  
+      - name: Set up dependency caching
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+  
+      - name: Publish with dotnet
+        shell: bash
+        run: dotnet publish -c Release -r win-x64 -o ./output --self-contained '${{inputs.project-path}}'
+  
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{inputs.artifact-name}}
+          path: ./output
+          overwrite: true
           
