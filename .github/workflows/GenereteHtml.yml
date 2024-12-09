@@ -1,0 +1,31 @@
+name: GenereteHtml
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  #push:
+  #  branches: [ "main" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+    # This workflow contains a single job called "build"
+    checkOut:
+        # The type of runner that the job will run on
+        runs-on: windows-latest
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+          - name: checkout
+            uses: actions/checkout@v2
+          - name: udelejHtml
+            run: |
+                mkdir -p dist
+                echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Empty page</title></head><body>Empty page</body></html>' > dist/index.html
+            
+          - name: Push dist folder
+            uses: JamesIves/github-pages-deploy-action@4.1.0
+            with:
+                branch: deploy # The branch the action should deploy to.
+                folder: dist # The folder the action should deploy.
+                clean: true # Te get rid of all unnecessary files               
