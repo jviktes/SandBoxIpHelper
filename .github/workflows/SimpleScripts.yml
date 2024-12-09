@@ -2,15 +2,15 @@ name: SimpleCheckOut
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+  #push:
+  #  branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
 
         # This workflow contains a single job called "build"
-        buildOnGitHub:
+        checkOut:
             # The type of runner that the job will run on
             runs-on: windows-latest
                 # Steps represent a sequence of tasks that will be executed as part of the job
@@ -20,14 +20,11 @@ jobs:
             - run: |
                 echo ${{ github.workspace }}
                 echo $GITHUB_WORKSPACE  
-        buildOnSelfHosted:
-                # The type of runner that the job will run on
-            runs-on: self-hosted
+        # build2:
+        #         # The type of runner that the job will run on
+        #     runs-on: self-hosted
 
-            steps:
-                # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-                - uses: actions/checkout@v2               
-                - run: |
-                    echo ${{ github.workspace }}
-                    echo $GITHUB_WORKSPACE
-                - run: mkdir pokus 
+        #     steps:
+        #         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        #         - uses: actions/checkout@v2               
+        exampleScript:
