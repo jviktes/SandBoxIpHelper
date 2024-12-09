@@ -77,7 +77,7 @@ jobs:
     - name: Write files names
       shell: pwsh
       run: |
-        $files = Get-ChildItem "$env.WORKING_DIRECTORY" -File -Recurse
+        $files = Get-ChildItem ${{env.WORKING_DIRECTORY}} -File -Recurse
         try {
             foreach ($file in $files) {
               Write-Host $file.name
@@ -112,7 +112,7 @@ jobs:
   
       - name: Publish with dotnet
         shell: bash
-        run: dotnet publish ${{ env.WORKING_DIRECTORY }}/SandBoxIpHelper.sln -c Release -r win-x64 -o ./output
+        run: dotnet publish -c Release -r win-x64 -o ./output
   
       - name: Upload artifact
         uses: actions/upload-artifact@v4
