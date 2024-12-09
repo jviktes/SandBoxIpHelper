@@ -17,7 +17,7 @@ jobs:
             - uses: actions/checkout@v2
         build2:
                 # The type of runner that the job will run on
-            runs-on: VIK_GC_LENOVO
+            runs-on: self-hosted
 
             steps:
                 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
