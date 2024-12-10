@@ -7,6 +7,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  ARTIFACT_NAME: "Liberec"
+  VAR_1: ${{vars.VAR_1}}
+
 jobs:
 
     # This workflow contains a single job called "build"
@@ -28,3 +32,27 @@ jobs:
           shell: pwsh
           run: |
                 .\SomeScript.ps1 -Directory (Get-Location).Path 
+    
+    useEnv:
+        runs-on: [self-hosted]
+        needs: checkOut 
+        steps:
+          - name: Vypis ARTIFACT_NAME
+            shell: pwsh
+            run: |
+                  echo ARTIFACT_NAME is now: ${{env.ARTIFACT_NAME}} 
+                  echo POKUS: ${{env.POKUS}} 
+                  echo VAR_1: ${{env.VAR_1}} 
+
+    pokusOs:
+       runs-on: ${{ matrix.os }}              
+       strategy:    # multiple options to combine
+        matrix:
+          os: [ubuntu-latest, self-hosted]
+    
+       steps:
+            - name: Vypis OS
+              shell: pwsh
+              run: |
+                    echo Current os is: ${{ matrix.os }}
+           
