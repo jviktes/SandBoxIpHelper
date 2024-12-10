@@ -12,7 +12,7 @@ jobs:
     # This workflow contains a single job called "build"
     checkOut:
         # The type of runner that the job will run on
-        runs-on: [windows-latest] #ubuntu-latest #windows-latest
+        runs-on: [windows-latest,self-hosted] #ubuntu-latest #windows-latest
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -20,7 +20,7 @@ jobs:
             uses: actions/checkout@v2
 
     builder:
-        runs-on: [windows-latest] #ubuntu-latest #windows-latest    
+        runs-on: [windows-latest,self-hosted] #ubuntu-latest #windows-latest    
         steps:
         - name: Build
           id: with_output
@@ -29,17 +29,19 @@ jobs:
             echo 'ExampleValue' > artifacts/data.txt
             echo "::set-output name=ovalue::output value\n"
         - name: Upload output file
-          uses: actions/upload-artifact@v2
+          uses: actions/upload-artifact@v4
           with:
             name: output-data
             path: artifacts/*.txt
 
-    checkOut2:
-                # The type of runner that the job will run on
-                runs-on: [self-hosted] #ubuntu-latest #windows-latest
-                # Steps represent a sequence of tasks that will be executed as part of the job
-                steps:
-                # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-                  - name: checkout
-                    uses: actions/checkout@v2
+    # checkOut2:
+    #             # The type of runner that the job will run on
+    #             runs-on: [self-hosted] #ubuntu-latest #windows-latest
+    #             # Steps represent a sequence of tasks that will be executed as part of the job
+    #             steps:
+    #             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    #               - name: checkout
+    #                 uses: actions/checkout@v2
+    
+
     
