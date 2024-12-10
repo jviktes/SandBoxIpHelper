@@ -21,7 +21,7 @@ jobs:
           - name: udelejHtml
             run: |
                 mkdir -p dist
-                echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Empty page</title></head><body>Empty page</body></html>' > dist/index.html
+                echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Hello world!</title></head><body>Empty page</body></html>' > dist/index.html
             
           - name: Push dist folder
             uses: JamesIves/github-pages-deploy-action@4.1.0
