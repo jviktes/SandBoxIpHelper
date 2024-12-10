@@ -9,7 +9,8 @@ on:
 
 env:
   ARTIFACT_NAME: "Liberec"
-  VAR_1: ${{vars.VAR_1}}
+  POKUS: ${{vars.POKUS}} #TODO nejde
+  SEC_1: ${{secrets.REPOSEC}}  
 
 jobs:
 
@@ -39,14 +40,17 @@ jobs:
         steps:
           - name: Vypis ARTIFACT_NAME
             shell: pwsh
+            #TODO nejde POKUS VAR_1
             run: |
-                  echo ARTIFACT_NAME is now: ${{env.ARTIFACT_NAME}} 
-                  echo POKUS: ${{env.POKUS}} 
-                  echo VAR_1: ${{env.VAR_1}} 
+                  echo "ARTIFACT_NAME is now: ${{env.ARTIFACT_NAME}}"
+                  echo POKUS: ${{env.POKUS}}  
+                  echo SEC_1: ${{env.SEC_1}} 
+                  echo "GITHUB_RUN_NUMBER: ${env:GITHUB_RUN_NUMBER}"
+                  echo "GITHUB_WORKSPACE: $env:GITHUB_WORKSPACE"
 
-    pokusOs:
+    testRunOn_two_operation_systems:
        runs-on: ${{ matrix.os }}              
-       strategy:    # multiple options to combine
+       strategy:    # multiple options to combine. Runnig 2x for each os.
         matrix:
           os: [ubuntu-latest, self-hosted]
     
@@ -54,5 +58,4 @@ jobs:
             - name: Vypis OS
               shell: pwsh
               run: |
-                    echo Current os is: ${{ matrix.os }}
-           
+                    echo "Current os is: ${{ matrix.os }}"
