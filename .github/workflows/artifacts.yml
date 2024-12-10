@@ -34,6 +34,26 @@ jobs:
             name: output-data
             path: artifacts/*.txt
 
+    # You can only download artifacts in a workflow that were uploaded during the same workflow run.
+    consume-artifact:
+        runs-on: self-hosted
+        needs: builder             
+        steps:
+        - name: Consume output
+          run: |
+            echo "${{ needs.builder.outputs.ovalue }}"
+        - name: Download a single artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: output-data
+            path: ./downloaded
+        - name: Display structure of downloaded files
+          run: |
+            Get-ChildItem ./downloaded
+        - name: Consume
+          run: |
+            type downloaded/artifact.txt
+
     # checkOut2:
     #             # The type of runner that the job will run on
     #             runs-on: [self-hosted] #ubuntu-latest #windows-latest
