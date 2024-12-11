@@ -47,14 +47,14 @@ jobs:
         dotnet build --configuration Release --no-restore $env:PROJECTDIR
     - name: Package
       run: |
-        dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
+        dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER env:PROJECTDIR
     - name: Parametres
       run: |
-        echo "event_name: ${github.event_name}"
-        echo "inputs.publish: ${github.event.inputs.publish}"
+        echo "event_name: ${{github.event_name}}"
+        echo "inputs.publish: ${{github.event.inputs.publish}}"
           #test - formular  test podminek  
     - name: Publish the package
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish }}
       run: |
-        dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
+        dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $secrets:NUGETAPIKEY
         #test push 2 balicku    
