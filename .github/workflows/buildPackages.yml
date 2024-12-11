@@ -6,7 +6,6 @@ on:
 #     branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
 
-  #test - formular:
   workflow_dispatch:
     inputs:
       publish:
@@ -30,9 +29,9 @@ jobs:
     - uses: actions/checkout@v4
 
     # https://github.com/actions/setup-dotnet
-    # To speed up dependencies see also: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
+    # TODO To speed up dependencies see also: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v2 #TODO version 4 failed on dotnet-install: Failed to extract package. Exception: Access to the path 'C:\Program Files\dotnet\sdk\8.0.404' is denied.
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
         source-url: ${{ env.NUGET_SERVER }}  # test adresy:
@@ -45,8 +44,13 @@ jobs:
     - name: Package
       run: |
         dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
+    - name: Parametres
+      run: |
+        echo "event_name: ${github.event_name}"
+        echo "inputs.publish: ${github.event.inputs.publish}"
+          #test - formular  test podminek  
     - name: Publish the package
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish }}
       run: |
         dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
-        
         #test push 2 balicku    
