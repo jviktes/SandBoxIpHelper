@@ -18,6 +18,7 @@ env:
   PROJECTDIR: 'Helpers' #folder where project file is
   NUGET_SERVER: 'https://api.nuget.org/v3/index.json'
   NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  NUGETAPIKEY : ${{secrets.NUGETAPIKEY}}
 jobs:
   publish:
     runs-on: windows-latest #self-hosted #windows-latest
@@ -60,5 +61,5 @@ jobs:
     - name: Publish the package
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish }}
       run: |
-        dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $secrets:NUGETAPIKEY
+        dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
         #test push 2 balicku    
