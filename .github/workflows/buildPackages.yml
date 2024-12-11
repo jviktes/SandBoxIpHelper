@@ -5,37 +5,48 @@ on:
 #   push:
 #     branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
+
+  #test - formular:
   workflow_dispatch:
+    inputs:
+      publish:
+        type: boolean
+        description: 'Publish to nugget server'     
+        required: false
+        default: false
+
+env:
+  PROJECTDIR: 'Helpers' #folder where project file is
+  NUGET_SERVER: 'https://api.nuget.org/v3/index.json'
 
 jobs:
   publish:
     runs-on: self-hosted #windows-latest
     strategy:
       matrix:
-        dotnet-version: [ '8.0.x' ]
-    env:
-      PROJECTDIR: 'Helpers'
+        dotnet-version: [ '8.0.x', '6.0.x' ] # test verzi
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     # https://github.com/actions/setup-dotnet
     # To speed up dependencies see also: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
-        #source-url: ${{ env.NUGET_REGISTRY }}
+        source-url: ${{ env.NUGET_SERVER }}  # test adresy:
     - name: Install dependencies
       run: |
-        dotnet restore $env:PROJECTDIR
+        dotnet restore $env:PROJECTDIR #install required packeges
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore $env:PROJECTDIR
     - name: Package
       run: |
         dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
-    # - name: Publish the package
-    #   run: |
-    #     dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGET_AUTH_TOKEN
-
+    - name: Publish the package
+      run: |
+        dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
+        
+        #test push 2 balicku    
