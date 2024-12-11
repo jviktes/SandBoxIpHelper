@@ -26,6 +26,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install prerequisites
+      shell: pwsh
+      run: |
+       Install-Module Utilities 
+
     - name: PrepareFiles
       run: |
             mkdir outputModule
