@@ -37,7 +37,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
         source-url: ${{ env.NUGET_SERVER }}  # test adresy:
-        cache: true
+        #TODO mozna chyba Error: Dependencies lock file is not found in Supported file patterns: packages.lock.json cache: true
     - name: Install dependencies
     #install required packeges
       run: |
