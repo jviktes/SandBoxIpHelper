@@ -29,7 +29,7 @@ jobs:
     - name: Install prerequisites
       shell: pwsh
       run: |
-       Install-Module Utilities -Force
+       Install-Module Utilities -AllowClobber
 
     - name: PrepareFiles
       run: |
