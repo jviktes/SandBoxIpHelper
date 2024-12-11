@@ -32,9 +32,9 @@ jobs:
             New-Item -Path "outputModule\helpers" -ItemType Directory -Force
     - name: CopyingFiles
       run: |
-            Copy-Item -Path $env:GITHUB_WORKSPACE -Destination $env:GITHUB_WORKSPACE/outputModule -Recurse -Force -Filter *.psd1, *.psm1
-            Copy-Item -Path $env:GITHUB_WORKSPACE/Helpers -Destination $env:GITHUB_WORKSPACE/outputModule -Recurse -Force
-    
+            Copy-Item -Path (Join-Path $env:GITHUB_WORKSPACE "helpers") -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule") -Recurse -Force
+            Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Include "*.psd1", "*.psm1" | Copy-Item -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule") -Force
+
     - name: Publish-PSModule
       uses: PSModule/Publish-PSModule@main
       env:
