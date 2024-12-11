@@ -31,13 +31,16 @@ jobs:
     # https://github.com/actions/setup-dotnet
     # TODO To speed up dependencies see also: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v2 #TODO version 4 failed on dotnet-install: Failed to extract package. Exception: Access to the path 'C:\Program Files\dotnet\sdk\8.0.404' is denied.
+      uses: actions/setup-dotnet@v1.7.2 
+      #TODO version 4 failed on dotnet-install: Failed to extract package. Exception: Access to the path 'C:\Program Files\dotnet\sdk\8.0.404' is denied.
+      #TODO version 2 failed on The NUGET_AUTH_TOKEN environment variable was not provided. In this step, add the following ???
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
         source-url: ${{ env.NUGET_SERVER }}  # test adresy:
     - name: Install dependencies
+    #install required packeges
       run: |
-        dotnet restore $env:PROJECTDIR #install required packeges
+        dotnet restore $env:PROJECTDIR 
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore $env:PROJECTDIR
