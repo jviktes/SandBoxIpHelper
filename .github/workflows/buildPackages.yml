@@ -17,7 +17,7 @@ on:
 env:
   PROJECTDIR: 'Helpers' #folder where project file is
   NUGET_SERVER: 'https://api.nuget.org/v3/index.json'
-
+  NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 jobs:
   publish:
     runs-on: windows-latest #self-hosted #windows-latest
