@@ -22,7 +22,7 @@ env:
   
 jobs:
   publish:
-    runs-on: windows-latest #self-hosted #windows-latest
+    runs-on: self-hosted #self-hosted #windows-latest
     steps:
     - uses: actions/checkout@v4
 
