@@ -36,12 +36,11 @@ jobs:
 
     - name: PrepareFiles
       run: |
-            mkdir outputModule
-            New-Item -Path "outputModule\helpers" -ItemType Directory -Force
+            New-Item -Path "outputModule\SandBoxIpHelper\Helpers" -ItemType Directory -Force
     - name: CopyingFiles
       run: |
-            Copy-Item -Path (Join-Path $env:GITHUB_WORKSPACE "helpers") -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule") -Recurse -Force
-            Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Include "*.psd1", "*.psm1" | Copy-Item -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule") -Force
+            Copy-Item -Path (Join-Path $env:GITHUB_WORKSPACE "Helpers") -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\Helpers") -Recurse -Force
+            Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Include "*.psd1", "*.psm1" | Copy-Item -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\") -Force
 
     - name: Publish-PSModule
       uses: PSModule/Publish-PSModule@main
@@ -50,7 +49,7 @@ jobs:
       with:
         APIKey: ${{env.POWERSHELL_API_KEY}}
         ModulePath: "outputModule" #Module path [D:\a\SandBoxIpHelper\SandBoxIpHelper\outputModule\SandBoxIpHelper] does not exist.
-        Name:  SandBoxIpHelper #${{github.repository}} --> error protoze to bere jviktes\SandBoxIpHelper
+        #Name:  SandBoxIpHelper #${{github.repository}} --> error protoze to bere jviktes\SandBoxIpHelper
         #$name = ($env:GITHUB_ACTION_INPUT_Name | IsNullOrEmpty) ? $env:GITHUB_REPOSITORY_NAME : $env:GITHUB_ACTION_INPUT_Name
         #$modulePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath $env:GITHUB_ACTION_INPUT_ModulePath $name
 
