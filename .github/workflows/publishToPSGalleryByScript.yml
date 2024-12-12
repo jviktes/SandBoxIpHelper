@@ -24,10 +24,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: AssemblyPowershelModule for prpeare files
+    - name: AssemblyPowershelModule for prepare modules files
       shell: pwsh
       run: |
           .\AssemblyPowershelModule.ps1 -RootDirectory $env:GITHUB_WORKSPACE -ModuleName $env:MODULE_NAME
+
+    - name: Parametres
+      run: |
+        echo "event_name: ${{github.event_name}}"
+        echo "inputs.publish: ${{github.event.inputs.publish}}"
 
     - name: Publish to gallery
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish==true }}
