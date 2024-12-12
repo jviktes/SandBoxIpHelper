@@ -22,14 +22,14 @@ env:
   
 jobs:
   publish:
-    runs-on: self-hosted #self-hosted #windows-latest
+    runs-on: windows-latest #self-hosted #windows-latest
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install prerequisites
-      shell: pwsh
-      run: |
-       Install-Module Utilities -AllowClobber
+    # - name: Install prerequisites
+    #   shell: pwsh
+    #   run: |
+    #    Install-Module Utilities -AllowClobber
 
     - name: PrepareFiles
       run: |
