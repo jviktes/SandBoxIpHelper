@@ -50,6 +50,9 @@ jobs:
       with:
         APIKey: ${{env.POWERSHELL_API_KEY}}
         ModulePath: "outputModule" #Module path [D:\a\SandBoxIpHelper\SandBoxIpHelper\outputModule\SandBoxIpHelper] does not exist.
-        Name: ${{github.repository}} #SandBoxIpHelper
+        Name:  SandBoxIpHelper #${{github.repository}} --> error protoze to bere jviktes\SandBoxIpHelper
         #$name = ($env:GITHUB_ACTION_INPUT_Name | IsNullOrEmpty) ? $env:GITHUB_REPOSITORY_NAME : $env:GITHUB_ACTION_INPUT_Name
         #$modulePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath $env:GITHUB_ACTION_INPUT_ModulePath $name
+
+        #https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables
+
