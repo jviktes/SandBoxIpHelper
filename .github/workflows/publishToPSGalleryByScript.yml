@@ -16,6 +16,7 @@ on:
 
 env:
   POWERSHELL_API_KEY : ${{secrets.POWERSHELL_API_KEY}}
+  MODULE_NAME: "SandBoxIpHelper"
 
 jobs:
   publish:
@@ -23,19 +24,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-
-      #TODO toto nahradit skriptem?
-    - name: PrepareFiles
+    - name: AssemblyPowershelModule for prpeare files
+      shell: pwsh
       run: |
-            New-Item -Path "outputModule\SandBoxIpHelper\Helpers" -ItemType Directory -Force
-    - name: CopyingFiles
-      run: |
-            Copy-Item -Path (Join-Path $env:GITHUB_WORKSPACE "Helpers") -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\Helpers") -Recurse -Force
-            Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Include "*.psd1", "*.psm1" | Copy-Item -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\") -Force
+          .\AssemblyPowershelModule.ps1 -RootDirectory $env:GITHUB_WORKSPACE -ModuleName $env:MODULE_NAME
 
     - name: Publish to gallery
-        #Publish to PS Gallery
-        #if: ${{ (github.event_name != 'workflow_dispatch') || github.event.inputs.publish }}
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish==true }}
       shell: pwsh
       env:
           SECRET: ${{env.POWERSHELL_API_KEY}}
