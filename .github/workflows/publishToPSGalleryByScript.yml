@@ -1,0 +1,52 @@
+name: publishToPSGalleryByScript
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+#   push:
+#     branches: [ "main" ]
+  # Allows you to run this workflow manually from the Actions tab
+
+  workflow_dispatch:
+    inputs:
+      publish:
+        type: boolean
+        description: 'Publish to powershell gallery'     
+        required: false
+        default: false
+
+env:
+  POWERSHELL_API_KEY : ${{secrets.POWERSHELL_API_KEY}}
+
+jobs:
+  publish:
+    runs-on: windows-latest #self-hosted #windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+
+      #TODO toto nahradit skriptem?
+    - name: PrepareFiles
+      run: |
+            New-Item -Path "outputModule\SandBoxIpHelper\Helpers" -ItemType Directory -Force
+    - name: CopyingFiles
+      run: |
+            Copy-Item -Path (Join-Path $env:GITHUB_WORKSPACE "Helpers") -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\Helpers") -Recurse -Force
+            Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Include "*.psd1", "*.psm1" | Copy-Item -Destination (Join-Path $env:GITHUB_WORKSPACE "outputModule\SandBoxIpHelper\") -Force
+
+    - name: Publish to gallery
+        #Publish to PS Gallery
+        #if: ${{ (github.event_name != 'workflow_dispatch') || github.event.inputs.publish }}
+      shell: pwsh
+      env:
+          SECRET: ${{env.POWERSHELL_API_KEY}}
+      run: |
+          write-host "Publishing from: $env:GITHUB_WORKSPACE\outputModule\SandBoxIpHelper"
+          try
+          {
+            Publish-PSResource -Path "$env:GITHUB_WORKSPACE\outputModule\SandBoxIpHelper" -Repository PSGallery -APIKey "$env:SECRET"
+          }
+          catch
+          {
+            Write-Host "Error: $($_.Exception)"
+            throw
+          }
