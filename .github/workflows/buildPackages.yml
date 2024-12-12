@@ -19,7 +19,7 @@ env:
   NUGET_SERVER: 'https://api.nuget.org/v3/index.json'
   NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   NUGETAPIKEY : ${{secrets.NUGETAPIKEY}}
-  
+
 jobs:
   publish:
     runs-on: windows-latest #self-hosted #windows-latest
@@ -40,21 +40,21 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
         source-url: ${{ env.NUGET_SERVER }}  # test adresy:
         #TODO mozna chyba Error: Dependencies lock file is not found in Supported file patterns: packages.lock.json cache: true
+    
     - name: Install dependencies
     #install required packeges
       run: |
         dotnet restore $env:PROJECTDIR 
+    
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore $env:PROJECTDIR
+
     - name: Parametres
       run: |
           echo "event_name: ${{github.event_name}}"
           echo "inputs.publish: ${{github.event.inputs.publish}}"
-            #test - formular  test podminek    
-    - name: WTF
-      run: |
-          dotnet workload list
+      
     - name: Package
       run: |
         dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR

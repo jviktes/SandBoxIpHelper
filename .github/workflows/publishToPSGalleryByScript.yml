@@ -35,7 +35,7 @@ jobs:
         echo "inputs.publish: ${{github.event.inputs.publish}}"
 
     - name: Publish to gallery
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish==true }}
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish=='true' }}
       shell: pwsh
       env:
           SECRET: ${{env.POWERSHELL_API_KEY}}
