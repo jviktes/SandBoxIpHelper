@@ -60,7 +60,7 @@ jobs:
         dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
 
     - name: Publish the package
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish==true }}
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish=='true' }}
       run: |
         dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
         #test push 2 balicku    
