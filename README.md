@@ -26,7 +26,7 @@ Project provides public powershell module from here: <https://www.powershellgall
 ```powershell
 import-module SandBoxIpHelper.IPAddressHelper
 
-function Test-GetRangeBoundaries ($range, $siteId) {
+function GetRangeBoundaries ($range, $siteId) {
 
     $bounds =@()
     try {
@@ -35,23 +35,12 @@ function Test-GetRangeBoundaries ($range, $siteId) {
             low  = $bounds.Item1
             high = $bounds.Item2
         }
-
-        if ($null -eq $bounds) {
-            throw "Getting null value from GetRangeBoundaries()" 
-        }
-        
-        if ($bounds.low -eq 1521485956) {
-            Write-Debug "Test OK for GetRangeBoundaries() low bound value"
-        }
-        
-        if ($boundss.high -eq 1521485959) {
-             Write-Debug "Test OK for GetRangeBoundaries() high bound value"
-        }    
-
+        $bounds
     }
     catch {
         Write-Warning "Error occurred Test-GetRangeBoundaries: $_"
         throw "Error occurred Test-GetRangeBoundaries: $_"
     }
 }
+
 ```
