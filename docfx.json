@@ -4,7 +4,7 @@
     {
       "src": [
         {
-          "src": "../src",
+          "src": "Helpers",
           "files": [
             "**/*.csproj"
           ]
@@ -39,8 +39,8 @@
     "globalMetadata": {
       "_appName": "docs",
       "_appTitle": "docs",
-      "_enableSearch": true,
-      "pdf": true
+      "_enableSearch": false,
+      "pdf": false
     }
   }
 }

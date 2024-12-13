@@ -4,14 +4,22 @@ namespace GreyCorbel.Helpers
 {
 public static class IPv6AddressHelper
     {
-    
+        /// <summary>
+        /// Some nice description of GetNumber method...
+        /// </summary>
+        /// <param name="addr"></param>
+        /// <returns></returns>
         public static System.Numerics.BigInteger GetNumber(IPAddress addr)
         {
             var arr = addr.GetAddressBytes();
             System.Array.Reverse(arr);
             return new System.Numerics.BigInteger(arr);
         }
-
+        /// <summary>
+        /// Some nice description of GetNumber method...
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <returns></returns>
         public static System.Numerics.BigInteger GetNumber(string ipAddress)
         {
             var parts = ipAddress.Split('/');
@@ -20,6 +28,12 @@ public static class IPv6AddressHelper
             System.Array.Reverse(arr);
             return new System.Numerics.BigInteger(arr);
         }
+        /// <summary>
+        /// Some nice description of GetRangeBoundaries method...
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public static (System.Numerics.BigInteger,System.Numerics.BigInteger) GetRangeBoundaries(string range)
         {
             var parts = range.Split('/');
@@ -31,6 +45,12 @@ public static class IPv6AddressHelper
             System.Numerics.BigInteger high = low + rangeSize;
             return (low, high);
         }
+        /// <summary>
+        /// Some nice description of BelongsToRange method...
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
         public static bool BelongsToRange(string ipAddress, string range)
         {
             var bounds = GetRangeBoundaries(range);

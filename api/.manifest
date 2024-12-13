@@ -1,0 +1,13 @@
+{
+  "GreyCorbel.Helpers": "GreyCorbel.Helpers.yml",
+  "GreyCorbel.Helpers.IPv4AddressHelper": "GreyCorbel.Helpers.IPv4AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv4AddressHelper.BelongsToRange(System.String,System.String)": "GreyCorbel.Helpers.IPv4AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv4AddressHelper.GetNumber(System.String)": "GreyCorbel.Helpers.IPv4AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv4AddressHelper.GetRangeBoundaries(System.String)": "GreyCorbel.Helpers.IPv4AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv4AddressHelper.GetRangeBoundaries(System.String,System.String)": "GreyCorbel.Helpers.IPv4AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv6AddressHelper": "GreyCorbel.Helpers.IPv6AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv6AddressHelper.BelongsToRange(System.String,System.String)": "GreyCorbel.Helpers.IPv6AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv6AddressHelper.GetNumber(System.Net.IPAddress)": "GreyCorbel.Helpers.IPv6AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv6AddressHelper.GetNumber(System.String)": "GreyCorbel.Helpers.IPv6AddressHelper.yml",
+  "GreyCorbel.Helpers.IPv6AddressHelper.GetRangeBoundaries(System.String)": "GreyCorbel.Helpers.IPv6AddressHelper.yml"
+}

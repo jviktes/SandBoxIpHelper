@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: GreyCorbel.Helpers
+  commentId: N:GreyCorbel.Helpers
+  id: GreyCorbel.Helpers
+  children:
+  - GreyCorbel.Helpers.IPv4AddressHelper
+  - GreyCorbel.Helpers.IPv6AddressHelper
+  langs:
+  - csharp
+  - vb
+  name: GreyCorbel.Helpers
+  nameWithType: GreyCorbel.Helpers
+  fullName: GreyCorbel.Helpers
+  type: Namespace
+  assemblies:
+  - SandBoxIpHelper
+references:
+- uid: GreyCorbel.Helpers.IPv4AddressHelper
+  commentId: T:GreyCorbel.Helpers.IPv4AddressHelper
+  href: GreyCorbel.Helpers.IPv4AddressHelper.html
+  name: IPv4AddressHelper
+  nameWithType: IPv4AddressHelper
+  fullName: GreyCorbel.Helpers.IPv4AddressHelper
+- uid: GreyCorbel.Helpers.IPv6AddressHelper
+  commentId: T:GreyCorbel.Helpers.IPv6AddressHelper
+  href: GreyCorbel.Helpers.IPv6AddressHelper.html
+  name: IPv6AddressHelper
+  nameWithType: IPv6AddressHelper
+  fullName: GreyCorbel.Helpers.IPv6AddressHelper

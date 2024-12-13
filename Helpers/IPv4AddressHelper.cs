@@ -6,6 +6,11 @@ namespace GreyCorbel.Helpers
 {
     public static class IPv4AddressHelper
     {
+        /// <summary>
+        /// Some nice description of GetNumber method...
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <returns></returns>
         public static uint GetNumber(string ipAddress)
         {
             var parts = ipAddress.Split('/');
@@ -33,7 +38,12 @@ namespace GreyCorbel.Helpers
                 throw new Exception($"Error - ipv4Range in siteId {siteId}, range: {range}. Exception: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Some nice description of GetRangeBoundaries method...
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public static (uint,uint) GetRangeBoundaries(string range)
         {
             var parts = range.Split('/');
@@ -45,7 +55,12 @@ namespace GreyCorbel.Helpers
             uint high = low + rangeSize-1;
             return (low, high);
         }
-
+        /// <summary>
+        /// Some nice description of BelongsToRange method...
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
         public static bool BelongsToRange(string ipAddress, string range)
         {
             var bounds = GetRangeBoundaries(range);
