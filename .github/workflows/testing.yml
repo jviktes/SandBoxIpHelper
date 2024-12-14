@@ -24,4 +24,4 @@ jobs:
 
             - name: Test with Pester
               shell: pwsh
-              run: Invoke-Pester ./mainSandBox.Tests.ps1 -Passthru  -Passthru | Export-CliXml -Path Unit.Tests.xml
+              run: Invoke-Pester ./mainSandBox.Tests.ps1 -Passthru 
