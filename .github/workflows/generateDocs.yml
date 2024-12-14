@@ -22,7 +22,7 @@ jobs:
       environment:
         name: github-pages
         url: ${{ steps.deployment.outputs.page_url }}
-      runs-on: self-hosted #windows-latest
+      runs-on: windows-latest #self-hosted #windows-latest
       steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,11 +34,15 @@ jobs:
       - run: dotnet tool update -g docfx
       - run: docfx $env:GITHUB_WORKSPACE/docfx.json
   
+      - name: Write variables
+        run: |
+          echo "GITHUB_WORKSPACE from shell environment : $env:GITHUB_WORKSPACE"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: $env:GITHUB_WORKSPACE/_site
+          path: $env:GITHUB_WORKSPACE/'_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
