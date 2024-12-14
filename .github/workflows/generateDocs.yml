@@ -39,10 +39,12 @@ jobs:
           echo "GITHUB_WORKSPACE from shell environment : $env:GITHUB_WORKSPACE"
 
       - name: Upload artifact
+        env:
+            cesta: $env:GITHUB_WORKSPACE/+"_site"
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: $env:GITHUB_WORKSPACE/'_site'
+          path: ${{env.cesta}}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
