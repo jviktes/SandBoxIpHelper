@@ -40,7 +40,7 @@ jobs:
 
       - name: Upload artifact
         env:
-            cesta: $env:GITHUB_WORKSPACE/+"_site"
+            cesta: ${{ github.workspace }}/_site
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
