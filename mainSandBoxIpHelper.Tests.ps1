@@ -1,4 +1,5 @@
 BeforeAll { 
+    Install-Module -Name  SandBoxIpHelper.IPAddressHelper
     Import-Module SandBoxIpHelper.IPAddressHelper
 }
 
