@@ -33,14 +33,11 @@ jobs:
     # https://github.com/actions/setup-dotnet
     # TODO To speed up dependencies see also: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v4 #actions/setup-dotnet@v1.7.2 
-      #TODO version 4 failed on dotnet-install: Failed to extract package. Exception: Access to the path 'C:\Program Files\dotnet\sdk\8.0.404' is denied.
-      #TODO version 2 failed on The NUGET_AUTH_TOKEN environment variable was not provided. In this step, add the following ???
+      uses: actions/setup-dotnet@v4 
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
         source-url: ${{ env.NUGET_SERVER }}  # test adresy:
-        #TODO mozna chyba Error: Dependencies lock file is not found in Supported file patterns: packages.lock.json cache: true
-    
+          
     - name: Install dependencies
     #install required packeges
       run: |
@@ -63,4 +60,3 @@ jobs:
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish=='true' }}
       run: |
         dotnet nuget push $env:PROJECTDIR\bin\Release\*.nupkg -k $env:NUGETAPIKEY
-        #test push 2 balicku    
