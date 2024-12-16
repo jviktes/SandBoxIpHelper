@@ -1,6 +1,6 @@
 BeforeAll { 
-    Install-Module -Name  SandBoxIpHelper.IPAddressHelper
-    Import-Module SandBoxIpHelper.IPAddressHelper
+    #Install-Module -Name  SandBoxIpHelper.IPAddressHelper
+    Import-Module ./SandBoxIpHelper.IPAddressHelper.psm1
 }
 
 Describe "SandBoxIpHelper tests" {
