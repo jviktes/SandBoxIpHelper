@@ -52,10 +52,13 @@ jobs:
           echo "event_name: ${{github.event_name}}"
           echo "inputs.publish: ${{github.event.inputs.publish}}"
       
+    # - name: Package with run number version
+    #   run: |
+    #     dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
+         
     - name: Package
       run: |
-        dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:PROJECTDIR
-
+         dotnet pack --configuration Release $env:PROJECTDIR 
     - name: Publish the package
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish=='true' }}
       run: |
